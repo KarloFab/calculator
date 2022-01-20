@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var resultLabel: UILabel!
+    
+    var isFinishedTypingNumber: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +23,16 @@ class ViewController: UIViewController {
     }
  
     
-    @IBAction func numberButtonPressed(_ sender: Any) {
+    @IBAction func numberButtonPressed(_ sender: UIButton) {
+        if let numValue = sender.currentTitle {
+            
+            if isFinishedTypingNumber {
+                resultLabel.text = numValue
+                isFinishedTypingNumber = false
+            } else {
+                resultLabel.text = resultLabel.text! + numValue
+            }
+        }
     }
 }
 
