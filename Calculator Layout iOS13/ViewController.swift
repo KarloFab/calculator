@@ -13,6 +13,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var resultLabel: UILabel!
     
     var isFinishedTypingNumber: Bool = true
+    
+    private var displayValue: Double {
+        get {
+            guard let number = Double(resultLabel.text!) else {
+                fatalError("Cannot convert label to Double")
+            }
+            return number
+        }
+        
+        set {
+            resultLabel.text = String(newValue)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +35,14 @@ class ViewController: UIViewController {
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
         isFinishedTypingNumber = true
         
-        guard let number = Double(resultLabel.text!) else {
-            fatalError("Cannot convert label to Double")
-        }
-        
+
         if let calcMethod = sender.currentTitle {
             if calcMethod == "+/-" {
-                resultLabel.text = String(number * -1)
+                displayValue *= -1
             } else if calcMethod == "AC" {
-                resultLabel.text = "0"
+                displayValue = 0
             } else if calcMethod == "%" {
-                resultLabel.text = String(number * 0.01)
+                displayValue *= 0.01
             }
         }
     }
@@ -47,11 +57,7 @@ class ViewController: UIViewController {
             } else {
                 
                 if numValue == "." {
-                    guard let currentDisplayValue = Double(resultLabel.text!) else {
-                        fatalError("Cannot convert label to Double")
-                    }
-                    
-                    if !(floor(currentDisplayValue) == currentDisplayValue) {
+                    if !(floor(displayValue) == displayValue) {
                         return
                     }
                 }
