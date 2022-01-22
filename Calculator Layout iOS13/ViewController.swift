@@ -20,6 +20,21 @@ class ViewController: UIViewController {
     }
 
     @IBAction func calculateButtonPressed(_ sender: UIButton) {
+        isFinishedTypingNumber = true
+        
+        guard let number = Double(resultLabel.text!) else {
+            fatalError("Cannot convert label to Double")
+        }
+        
+        if let calcMethod = sender.currentTitle {
+            if calcMethod == "+/-" {
+                resultLabel.text = String(number * -1)
+            } else if calcMethod == "AC" {
+                resultLabel.text = "0"
+            } else if calcMethod == "%" {
+                resultLabel.text = String(number * 0.01)
+            }
+        }
     }
  
     
