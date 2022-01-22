@@ -45,6 +45,17 @@ class ViewController: UIViewController {
                 resultLabel.text = numValue
                 isFinishedTypingNumber = false
             } else {
+                
+                if numValue == "." {
+                    guard let currentDisplayValue = Double(resultLabel.text!) else {
+                        fatalError("Cannot convert label to Double")
+                    }
+                    
+                    if !(floor(currentDisplayValue) == currentDisplayValue) {
+                        return
+                    }
+                }
+ 
                 resultLabel.text = resultLabel.text! + numValue
             }
         }
